@@ -289,7 +289,193 @@ namespace Assignment1
 
 
         }
+
+
+        // assignment 03 
+        // question 01
+
+        class A3q10
+        {
+
+            public string Name { get; set; }
+            public int RollNo { get; set; }
+            public int[] Marks { get; set; } = new int[5];
+            public int TotalMarks { get; private set; }
+            public double Percentage { get; private set; }
+
+
+            public static string UniversityName;
+
+
+            static A3q10()
+            {
+                UniversityName = "Default University";
+            }
+
+
+            public A3q10()
+            {
+                Name = "Unknown";
+                RollNo = 0;
+                for (int i = 0; i < Marks.Length; i++)
+                {
+                    Marks[i] = 0;
+                }
+                TotalMarks = 0;
+                Percentage = 0.0;
+            }
+
+
+            public A3q10(string name, int rollNo, int[] marks)
+            {
+                Name = name;
+                RollNo = rollNo;
+                Marks = marks;
+                CalculateResult();
+            }
+
+
+            public void ReadData()
+            {
+                Random random = new Random();
+
+
+                string[] names = { "John", "Alice", "Bob", "Eve", "Charlie" };
+                Name = names[random.Next(names.Length)];
+
+
+                RollNo = random.Next(1, 1000);
+
+
+                for (int i = 0; i < Marks.Length; i++)
+                {
+                    Marks[i] = random.Next(40, 100);
+                }
+
+                Console.WriteLine("Data generated automatically.");
+            }
+
+
+            public void CalculateResult()
+            {
+                TotalMarks = 0;
+                for (int i = 0; i < Marks.Length; i++)
+                {
+                    TotalMarks += Marks[i];
+                }
+                Percentage = TotalMarks / 5.0;
+            }
+
+
+            public void Display()
+            {
+                Console.WriteLine("\nStudent Details:");
+                Console.WriteLine($"Name: {Name}");
+                Console.WriteLine($"Roll No: {RollNo}");
+                Console.WriteLine($"University: {UniversityName}");
+                Console.WriteLine("Marks: " + string.Join(", ", Marks));
+                Console.WriteLine($"Total Marks: {TotalMarks}");
+                Console.WriteLine($"Percentage: {Percentage:F2}%");
+            }
+
+
+        }
+
+        //  Qusestion 02 
+
+
+
+        interface Account
+        {
+            void Open_Account();
+            void Close_Account();
+        }
+
+        interface Customer
+        {
+            void Display_Customer_Detail();
+        }
+
+        class A3q2 : Account, Customer
+        {
+            public string CustomerName { get; set; }
+            public int AccountNumber { get; set; }
+            public double Balance { get; private set; }
+
+            public static string BankName;
+
+            static A3q2()
+            {
+                BankName = "Default Bank";
+            }
+
+            public A3q2()
+            {
+                CustomerName = "Unknown";
+                AccountNumber = 0;
+                Balance = 0.0;
+            }
+
+            public A3q2(string customerName, int accountNumber, double initialBalance)
+            {
+                CustomerName = customerName;
+                AccountNumber = accountNumber;
+                Balance = initialBalance;
+            }
+
+            public void Open_Account()
+            {
+                Console.WriteLine($"Account opened for {CustomerName} with Account Number {AccountNumber} at {BankName}.");
+            }
+
+            public void Close_Account()
+            {
+                Console.WriteLine($"Account {AccountNumber} for {CustomerName} has been closed.");
+            }
+
+            public void Display_Customer_Detail()
+            {
+                Console.WriteLine("\nCustomer Details:");
+                Console.WriteLine($"Name: {CustomerName}");
+                Console.WriteLine($"Account Number: {AccountNumber}");
+                Console.WriteLine($"Bank: {BankName}");
+                Console.WriteLine($"Balance: {Balance:C}");
+            }
+
+            public void Withdraw(double amount)
+            {
+                if (amount > Balance)
+                {
+                    Console.WriteLine("Insufficient balance.");
+                }
+                else
+                {
+                    Balance -= amount;
+                    Console.WriteLine($"Withdrawal successful. New balance: {Balance:C}");
+                }
+            }
+
+            public void Deposit(double amount)
+            {
+                if (amount <= 0)
+                {
+                    Console.WriteLine("Deposit amount must be positive.");
+                }
+                else
+                {
+                    Balance += amount;
+                    Console.WriteLine($"Deposit successful. New balance: {Balance:C}");
+                }
+            }
+
+            public void Check_And_Display_Balance()
+            {
+                Console.WriteLine($"Current balance: {Balance:C}");
+            }
+        }
     }
+
+
 
 
 }
